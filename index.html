@@ -1,1 +1,826 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prizmabrixx Drone | Unlock Creative Freedom</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-color: #030303;
+            --text-main: #ffffff;
+            --text-muted: #888888;
+            --accent: #d84b2c;
+            --font-display: 'Anton', sans-serif;
+            --font-body: 'Inter', sans-serif;
+            --trans-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===== GLOBAL ANIMATION CLASSES ===== */
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s var(--trans-smooth), transform 1s var(--trans-smooth);
+        }
+        .reveal-up.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-scale {
+            opacity: 0;
+            transform: scale(0.9);
+            transition: opacity 1.2s var(--trans-smooth), transform 1.2s var(--trans-smooth);
+        }
+        .reveal-scale.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-100px);
+            transition: opacity 1s var(--trans-smooth), transform 1s var(--trans-smooth);
+        }
+        .reveal-left.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            mix-blend-mode: difference;
+        }
+        .nav-logo svg {
+            fill: #fff;
+            height: 24px;
+        }
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .nav-links a:hover { color: var(--accent); }
+        .nav-btn {
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 8px 24px;
+            border-radius: 30px;
+            font-size: 11px;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .nav-btn:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ===== HERO SECTION ===== */
+        .hero {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: linear-gradient(to bottom, transparent, var(--bg-color)), url('https://images.unsplash.com/photo-1549488344-c67b9319eeed?q=80&w=2070&auto=format&fit=crop') center/cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+
+
+        .hero-text-outline {
+        position: absolute;
+    font-family: var(--font-display);
+    font-size: clamp(10px, 5vw, 90px);
+    line-height: 0.85;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+
+    color: transparent;                 /* remove fill */
+    -webkit-text-stroke: 0.1px #fff;      /* outline */
+    z-index: -1;
+
+    text-align: center;
+}
+
+        .hero-text h1 {
+            font-family: var(--font-display);
+            font-size: clamp(80px, 15vw, 220px);
+            line-height: 0.85;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            letter-spacing: 2px;
+        }
+
+        .hero-drone {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            max-width: 800px;
+            z-index: 5;
+            animation: float 6s ease-in-out infinite;
+            filter: drop-shadow(0 40px 30px rgba(0,0,0,0.7));
+            z-index: 10;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, -50%); }
+            50% { transform: translate(-50%, -55%); }
+        }
+
+        .hero-bottom {
+            position: absolute;
+            bottom: 40px;
+            width: 100%;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 10;
+        }
+        .hero-logo-text {
+            font-family: var(--font-display);
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+        .hero-socials {
+            display: flex;
+            gap: 15px;
+        }
+        .hero-socials a {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+        .hero-socials a:hover {
+            background: #fff;
+            color: #000;
+        }
+
+        /* ===== SECTION: INTRO ===== */
+        .intro-sec {
+            padding: 120px 50px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .intro-sec p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            letter-spacing: 1px;
+        }
+
+        /* ===== SECTION: PHOTOGRAPHIC ===== */
+        .photo-sec {
+            position: relative;
+            padding: 100px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 80vh;
+        }
+        .photo-bg-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: var(--font-display);
+            font-size: clamp(80px, 18vw, 300px);
+            color: rgba(255,255,255,0.03);
+            white-space: nowrap;
+            letter-spacing: 5px;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .photo-lens {
+            position: relative;
+            z-index: 2;
+            width: 90%;
+            max-width: 500px;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
+        }
+
+        /* ===== SECTION: VISION ASSIST ===== */
+        .vision-sec {
+            padding: 150px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 60px;
+        }
+        .vision-left {
+            flex: 1;
+        }
+
+        .vision-left img {
+        margin-left: 200px;
+    position: absolute;
+    width: 600px;
+    height: 800px;
+    margin-bottom: 900px;
+
+}
+
+
+        .vision-drone {
+            width: 150%;
+            margin-left: -20%;
+            filter: drop-shadow(0 30px 40px rgba(0,0,0,0.5));
+            transform-origin: center right;
+        }
+        .vision-right {
+            flex: 1;
+            max-width: 500px;
+        }
+        .vision-right h2 {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5vw, 70px);
+            line-height: 1;
+            margin-bottom: 30px;
+        }
+        .vision-right p {
+            color: var(--text-muted);
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        .vision-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px 10px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 40px;
+        }
+        .v-feature {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .v-feature .icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .v-feature p {
+            font-size: 11px;
+            color: #aaa;
+            margin: 0;
+            line-height: 1.4;
+        }
+
+        /* ===== SECTION: DIAG DRONE FLY ===== */
+        .fly-sec {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            padding: 0 100px;
+        }
+        .fly-text {
+            position: relative;
+            z-index: 2;
+            width: 400px;
+        }
+        .fly-text h2 {
+            font-family: var(--font-display);
+            font-size: clamp(30px, 4vw, 60px);
+            line-height: 1.1;
+            margin-bottom: 20px;
+        }
+        .fly-text p {
+            color: var(--text-muted);
+            font-size: 12px;
+            line-height: 1.6;
+        }
+        .fly-drone {
+    position: absolute;
+    right: -10%;
+    top: 20%;
+    width: 600px;   /* control size here */
+    height: auto;   /* keep aspect ratio */
+    z-index: 1;
+    opacity: 0.6;
+    transform: rotate(-15deg);
+}
+
+
+        /* ===== SECTION: ACCESSORIES ===== */
+        .acc-sec {
+            padding: 100px 50px;
+            text-align: center;
+        }
+        .acc-sec h2 {
+            font-family: var(--font-display);
+            font-size: clamp(50px, 6vw, 100px);
+            line-height: 1;
+            margin-bottom: -40px;
+            position: relative;
+            z-index: 2;
+        }
+        .acc-hero {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            background: linear-gradient(to top, var(--bg-color), transparent), url('https://raw.githubusercontent.com/vatsalvarma/Drone/refs/heads/main/drone-bg.png') center/cover;
+            margin-bottom: 40px;
+            mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent 100%);
+        }
+
+        .acc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .acc-card {
+            background: #0a0a0a;
+            border: 1px solid #1a1a1a;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+            transition: all 0.4s ease;
+        }
+        .acc-card:hover {
+            border-color: #333;
+            transform: translateY(-5px);
+            background: #111;
+        }
+        .acc-card h4 {
+            font-family: var(--font-display);
+            font-size: 24px;
+            letter-spacing: 1px;
+        }
+        .acc-card p {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+        .acc-img {
+            height: 120px;
+            background-color: #1a1a1a;
+            border-radius: 8px;
+            margin-top: auto;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .acc-img img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        /* ===== SECTION: FAQ ===== */
+        .faq-sec {
+            padding: 100px 50px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .faq-sec h2 {
+            font-family: var(--font-display);
+            font-size: clamp(40px, 5vw, 70px);
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .faq-item {
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .faq-item:last-child {
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .faq-question {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+        .faq-icon {
+            font-size: 20px;
+            font-weight: 300;
+            transition: transform 0.3s;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s var(--trans-smooth);
+        }
+        .faq-answer p {
+            padding-bottom: 30px;
+            font-size: 13px;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* ===== FOOTER CINE REVEAL ===== */
+        .footer {
+            position: relative;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 50px;
+            overflow: hidden;
+        }
+        .footer-bg-text {
+            font-family: var(--font-display);
+            font-size: clamp(100px, 20vw, 400px);
+            line-height: 0.8;
+            color: #1a1a1a;
+            position: absolute;
+            bottom: 15vh;
+            text-align: center;
+            width: 100%;
+            z-index: 1;
+        }
+        .footer-drone {
+            position: absolute;
+            bottom: 5vh;
+            width: 90%;
+            max-width: 1000px;
+            z-index: 2;
+            filter: drop-shadow(0 -20px 40px rgba(0,0,0,0.9));
+        }
+
+        .footer-links {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            padding: 0 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-top: 100px;
+            font-size: 11px;
+            color: var(--text-muted);
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .footer-col a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .footer-col a:hover { color: #fff; }
+
+        .btn-outline {
+            padding: 8px 24px;
+            border: 1px solid #fff;
+            border-radius: 30px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <a href="#" class="nav-logo">
+        <svg viewBox="0 0 100 30"><path d="M10,25 L10,5 L25,5 A10,10 0 0,1 25,25 Z M40,25 L40,5 M40,15 L55,15 A5,5 0 0,1 55,25 L40,25" fill="#fff" stroke="#fff" stroke-width="2" stroke-linejoin="round"/></svg>
+    </a>
+    <div class="nav-links">
+        <a href="#">HOME</a>
+        <a href="#">VR</a>
+        <a href="#">DRONE</a>
+        <a href="#">AVABLITY TOOL</a>
+        <a href="#">VIRAJ</a>
+    </div>
+    <a href="#" class="nav-btn">Book Now</a>
+</nav>
+
+<!-- HERO SECTION -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-text-outline reveal-scale">
+        <h1 class="reveal-scale">UNLOCK<br>DRONE<br>FREEDOM</h1>
+    </div>
+    <!-- High-res PNG drone cutout placeholder -->
+    <img src="https://raw.githubusercontent.com/vatsalvarma/Drone/refs/heads/main/drone%20png.png" class="hero-drone reveal-up" alt="drone" style="border-radius:20px; mix-blend-mode:lighten;">
+
+    <div class="hero-bottom reveal-up">
+        <div class="hero-logo-text">PRIZMABRIXX</div>
+        <div class="hero-socials">
+            <a href="#">Fb</a>
+            <a href="#">Tw</a>
+            <a href="#">Ig</a>
+        </div>
+    </div>
+</section>
+
+<!-- INTRO SECTION -->
+<section class="intro-sec reveal-up">
+    <p>THE MASTERY OF LIGHT AND SHADOW. FEATURING AN UPGRADED IMAGING SYSTEM, THE NEW DRONE EMPOWERS YOU TO SOAR THROUGH THE SKIES WITH UNPRECEDENTED CONFIDENCE. EMBRACE THE PINNACLE OF AERIAL PHOTOGRAPHY AND LET YOUR VISION FLY HIGH.</p>
+</section>
+
+<!-- PHOTOGRAPHIC SECTION -->
+<section class="photo-sec">
+    <div class="photo-bg-text js-parallax" data-speed="0.2">PHOTOGRAPHIC</div>
+    <img src="https://raw.githubusercontent.com/vatsalvarma/Drone/refs/heads/main/drone%20png.png" class="photo-lens reveal-scale" alt="gimbal lens" style="border-radius: 50%; width:300px; height:300px; object-fit:cover;">
+</section>
+
+<!-- VISION ASSIST SECTION -->
+<section class="vision-sec">
+    <div class="vision-left reveal-left">
+        <img src="https://i.pinimg.com/736x/41/3e/7b/413e7b1eb27175cbf5677861a6237df6.jpg" class="vision-drone" alt="drone side" style="border-radius:40px;">
+    </div>
+    <div class="vision-right">
+        <h2 class="reveal-up">VISION ASSIST<br>AERIAL CREATION<br>WITH SAFETY</h2>
+        <p class="reveal-up" style="transition-delay:0.1s;">Take off in challenging environments with absolute peace of mind. Visual sensors on all sides actively detect obstacles, planning safe flight routes instantly.</p>
+        <a href="#" class="nav-btn reveal-up" style="display:inline-block; transition-delay:0.2s;">Learn More</a>
+
+        <div class="vision-grid">
+            <div class="v-feature reveal-up" style="transition-delay:0.3s;">
+                <div class="icon">📷</div>
+                <p>4/3 CMOS Hasselblad Camera</p>
+            </div>
+            <div class="v-feature reveal-up" style="transition-delay:0.4s;">
+                <div class="icon">📡</div>
+                <p>Omnidirectional Obstacle Sensing</p>
+            </div>
+            <div class="v-feature reveal-up" style="transition-delay:0.5s;">
+                <div class="icon">🔋</div>
+                <p>46-Min Max Flight Time</p>
+            </div>
+            <div class="v-feature reveal-up" style="transition-delay:0.6s;">
+                <div class="icon">🛰</div>
+                <p>Advanced RTH (Return to Home)</p>
+            </div>
+            <div class="v-feature reveal-up" style="transition-delay:0.7s;">
+                <div class="icon">📡</div>
+                <p>15km HD Video Transmission</p>
+            </div>
+            <div class="v-feature reveal-up" style="transition-delay:0.8s;">
+                <div class="icon">📱</div>
+                <p>ActiveTrack 5.0 Precision</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FLY SECTION -->
+<section class="fly-sec">
+    <div class="fly-text">
+        <h2 class="reveal-up">OMNIDIRECTIONAL<br>OBSTACLE SENSING<br>& APAS 5.0</h2>
+        <p class="reveal-up" style="transition-delay:0.1s;">Multiple wide-angle vision sensors work seamlessly with a high-performance vision computing engine to sense obstacles in all directions precisely and plan a safe flight route that avoids them.</p>
+        <br>
+        <a href="#" class="nav-btn reveal-up" style="transition-delay:0.2s; display:inline-block;">Learn More</a>
+    </div>
+    <img src="https://i.pinimg.com/1200x/c1/02/c2/c102c248daf3f843e60edda8a4e4de43.jpg" class="fly-drone js-parallax" data-speed="0.8" alt="drone flying" style="border-radius:20px; mix-blend-mode:screen;">
+</section>
+
+<!-- ACCESSORIES -->
+<section class="acc-sec">
+    <h2 class="reveal-up">STUNNING<br>ACCESSORIES</h2>
+    <div class="acc-hero reveal-scale"></div>
+
+    <div class="acc-grid">
+        <div class="acc-card reveal-up">
+            <h4>DJI RC PRO</h4>
+            <p>With a 1000-nit display, high-performance processor, and 15km video transmission, it is an unmatched creation companion.</p>
+            <div class="acc-img"><img src="https://i.pinimg.com/1200x/f9/3a/5f/f93a5fc79368f46f09a2c09d8364efc3.jpg" alt="remote"></div>
+        </div>
+        <div class="acc-card reveal-up" style="transition-delay:0.1s;">
+            <h4>WIDE-ANGLE LENS</h4>
+            <p>Increase the FOV to capture more expansive landscapes, capturing stunning cinematic wide shots.</p>
+            <div class="acc-img"><img src="https://images.unsplash.com/photo-1510127034890-ba27508e9f1c?q=80&w=500&auto=format&fit=crop" alt="lens"></div>
+        </div>
+        <div class="acc-card reveal-up" style="transition-delay:0.2s;">
+            <h4>BATTERY HUB</h4>
+            <p>When connected to the 100W power adapter, the battery charging hub can charge three batteries sequentially.</p>
+            <div class="acc-img"><img src="https://i.pinimg.com/736x/eb/84/93/eb849312dfb609ddb2022984524ea0e9.jpg" alt="hub"></div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec">
+    <h2 class="reveal-up">FREQUENTLY<br>ASKED QUESTIONS</h2>
+
+    <div class="faq-item reveal-up">
+        <div class="faq-question">WHAT ARE THE MAIN UPGRADES OF MAVIC 3 OVER PREVIOUS GENERATIONS?<span class="faq-icon">+</span></div>
+        <div class="faq-answer">
+            <p>Mavic 3 features a dual-camera system, upgraded omnidirectional obstacle sensing, 46-minute max flight time, and O3+ transmission system providing up to 15km range.</p>
+        </div>
+    </div>
+    <div class="faq-item reveal-up">
+        <div class="faq-question">HOW DOES THE DUAL-CAMERA SYSTEM WORK IN FLIGHT?<span class="faq-icon">+</span></div>
+        <div class="faq-answer">
+            <p>You can seamlessly switch between the Hasselblad camera for wide shots and the Tele camera for 28x hybrid zoom, all while recording continuously.</p>
+        </div>
+    </div>
+    <div class="faq-item reveal-up">
+        <div class="faq-question">WHAT IS THE DIFFERENCE BETWEEN APAS 4.0 AND APAS 5.0?<span class="faq-icon">+</span></div>
+        <div class="faq-answer">
+            <p>APAS 5.0 utilizes enhanced algorithms to detect and bypass obstacles faster and more reliably in complex environments.</p>
+        </div>
+    </div>
+    <div class="faq-item reveal-up">
+        <div class="faq-question">DO I HAVE TO USE THE RC PRO OR CAN I USE MY SMARTPHONE?<span class="faq-icon">+</span></div>
+        <div class="faq-answer">
+            <p>You can use the standard RC-N1 controller paired with your smartphone, but the RC Pro offers a built-in ultra-bright screen for professional use.</p>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <div class="footer-bg-text js-parallax" data-speed="-0.3">CINEMATIC</div>
+    <img src="https://raw.githubusercontent.com/vatsalvarma/Drone/refs/heads/main/drone%20png.png" class="footer-drone reveal-up" alt="drone top" style="border-radius:40px;">
+
+    <div class="footer-links reveal-up">
+        <div class="footer-col">
+            <p style="color:#fff; font-weight:600; margin-bottom:10px;">PRIZMABRIXX</p>
+            <a href="#">About Us</a>
+            <a href="#">Contact</a>
+            <a href="#">Careers</a>
+        </div>
+        <div class="footer-col">
+            <p style="color:#fff; font-weight:600; margin-bottom:10px;">SUPPORT</p>
+            <a href="#">Help Center</a>
+            <a href="#">Repair Services</a>
+            <a href="#">Warranty</a>
+        </div>
+        <div class="footer-col">
+            <p style="color:#fff; font-weight:600; margin-bottom:10px;">COMMUNITY</p>
+            <a href="#">Forum</a>
+            <a href="#">Events</a>
+            <a href="#">Creator Hub</a>
+        </div>
+        <div class="footer-col" style="align-items:flex-end; gap:20px;">
+            <div class="hero-socials">
+                <a href="#">Fb</a><a href="#">Tw</a><a href="#">Ig</a>
+            </div>
+            <div style="display:flex; gap:20px; align-items:center;">
+                <span>English ▼</span>
+                <a href="#" class="btn-outline">Subscribe</a>
+            </div>
+        </div>
+    </div>
+    <div style="width:100%; border-top:1px solid #333; margin-top:40px; padding:20px 50px; display:flex; justify-content:space-between; font-size:10px; color:#555;">
+        <span>© 2026 Prizmabrixx. All Rights Reserved.</span>
+        <div style="display:flex; gap:20px;">
+            <a href="#" style="color:#555; text-decoration:none;">Privacy Policy</a>
+            <a href="#" style="color:#555; text-decoration:none;">Terms of Use</a>
+        </div>
+    </div>
+</footer>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+    // Scroll Reveal Animation (Intersection Observer)
+    const revealElements = document.querySelectorAll('.reveal-up, .reveal-scale, .reveal-left');
+
+    const revealOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+        entries.forEach(entry => {
+            if (!entry.isIntersecting) {
+                return;
+            } else {
+                entry.target.classList.add('active');
+                observer.unobserve(entry.target); // Trigger only once for performance
+            }
+        });
+    }, revealOptions);
+
+    revealElements.forEach(el => {
+        revealOnScroll.observe(el);
+    });
+
+    // FAQ Accordion Logic
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            // close other items
+            faqItems.forEach(other => {
+                if (other !== item && other.classList.contains('active')) {
+                    other.classList.remove('active');
+                    other.querySelector('.faq-answer').style.maxHeight = null;
+                }
+            });
+
+            // toggle current item
+            item.classList.toggle('active');
+            const answer = item.querySelector('.faq-answer');
+            if (item.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+            } else {
+                answer.style.maxHeight = null;
+            }
+        });
+    });
+
+    // Parallax Effect
+    const parallaxElements = document.querySelectorAll('.js-parallax');
+    window.addEventListener('scroll', () => {
+        const scrolled = window.scrollY;
+        parallaxElements.forEach(el => {
+            const speed = el.getAttribute('data-speed');
+            el.style.transform = `translate(-50%, calc(-50% + ${scrolled * speed}px))`;
+            if(el.classList.contains('fly-drone')) {
+                 el.style.transform = `translateY(${scrolled * speed * 0.5}px) rotate(-15deg)`;
+            }
+            if(el.classList.contains('footer-bg-text')){
+                el.style.transform = `translateY(${scrolled * speed * 0.1}px)`;
+            }
+        });
+    });
+
+    // Initial trigger for hero items
+    setTimeout(() => {
+        document.querySelectorAll('.hero .reveal-scale, .hero .reveal-up').forEach(el => el.classList.add('active'));
+    }, 100);
+
+</script>
+</body>
+</html>
 
